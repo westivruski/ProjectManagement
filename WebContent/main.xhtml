@@ -1,0 +1,106 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:p="http://primefaces.org/ui"
+    >
+    
+<h:head>
+
+        <style type="text/css">
+     
+         #tbl_wrap { height: 50%; width: 80%; padding: 0; margin: 0;   max-width:1000px; margin: auto;  }
+       ​
+        </style>
+</h:head>
+
+
+<h:body>
+
+	
+
+   
+    <h:form id="tbl_wrap">
+    
+         <p:growl id="msgs" showDetail="true"/>       
+                
+                
+                
+                <h:outputLabel for="name" value="Name"></h:outputLabel>
+				<h:inputText id="name" value="#{projectBean.name}"></h:inputText>      
+                <p:commandButton value="Search" action="#{projectBean.search}" update="proj"></p:commandButton>
+    
+    
+    
+    
+        <p:dataTable id="proj" sortBy="#{prj.createdTime}"  editable="true" value="#{projectBean.projects}" var="prj">
+        
+        <f:facet name="header">List of Projects Registered</f:facet>
+            
+              <p:ajax event="rowEdit" listener="#{projectBean.onRowEdit}" update="tbl_wrap:msgs" />
+             <p:ajax event="rowEditCancel" listener="#{projectBean.onRowCancel}" update="tbl_wrap:msgs" />
+         
+            <p:column  headerText="Name">
+            <p:cellEditor>    
+                 <f:facet name="output"><h:outputText value="#{prj.name}" /></f:facet>
+                 <f:facet name="input"><p:inputText  value="#{prj.name}"/></f:facet>
+            </p:cellEditor>
+            </p:column>
+            
+            <p:column headerText="Description"> 
+                <h:outputText  value="#{prj.description}" />
+            </p:column>
+            
+            
+               <p:column  headerText="Email">
+            <p:cellEditor>    
+                 <f:facet name="output"><h:outputText value="#{prj.email}" /></f:facet>
+                 <f:facet name="input"><p:inputText  value="#{prj.email}"/></f:facet>
+            </p:cellEditor>
+            </p:column>   
+          
+         <p:column headerText="Created Date"> 
+                <h:outputText  value="#{prj.createdTime}" />
+            </p:column>   
+            
+            <p:column headerText="Modified Date"> 
+                <h:outputText  value="#{prj.modifiedTime}" />
+            </p:column> 
+     
+     
+            <p:column headerText="Delete">
+            <p:commandButton id="mybutton"  action = "#{projectBean.delete(prj.id)}" value="Delete" update="tbl_wrap">
+             <p:confirm header="Confirmation" message="Are you sure?" icon="pi pi-exclamation-triangle" />
+            </p:commandButton>  
+            
+              <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+              <p:commandButton value="Yes" type="button" styleClass="ui-confirmdialog-yes" icon="pi pi-check" />
+              <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="pi pi-times" />
+              </p:confirmDialog> 
+            
+            </p:column>
+            
+       
+            
+        
+           <p:column headerText="Edit" style="width:35px">
+            <p:rowEditor />
+        </p:column>
+            </p:dataTable>
+
+    </h:form>
+   
+     <center>
+     <p:commandButton action="contents.xhtml?faces-redirect=true" value="Create New Project"/>
+     </center>
+ 
+     
+     
+
+     
+   
+</h:body>
+</html>

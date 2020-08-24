@@ -1,0 +1,69 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:c="http://java.sun.com/jsf/core"
+	 xmlns:p="http://primefaces.org/ui"
+	>
+   
+   <h:head>
+
+        <style type="text/css">
+     
+        form {
+    margin-left: 35%;
+    margin-right:35%;
+    margin-top: 10%;
+    width: 50%;
+}
+       
+        </style>
+</h:head>
+   
+   <h:body> 
+
+    
+    <h:form >
+    
+   <h3>Add a new Project below :</h3>
+    
+
+        <div>
+        <p:column>      
+      <p:outputLabel>Project name </p:outputLabel>
+      <p:inputText id="input" value="#{projectBean.project.name}"  required="true"  requiredMessage="This field is required."/>
+       <p:message for="input"/>
+      </p:column>
+       </div>
+
+     <div>
+        <p:column>
+   <p:outputLabel>Project description </p:outputLabel>
+   <p:inputText id="des" value="#{projectBean.project.description}"  required="true"  requiredMessage="This field is required."/>
+    <p:message for="des"/>
+   </p:column>
+    </div>
+        <div>
+        <p:column>
+   <p:outputLabel>Project email </p:outputLabel>
+   <p:inputText id="eml" value="#{projectBean.project.email}"  required="true"  requiredMessage="This field is required."/>
+    <p:message for="eml"/>
+   </p:column>
+    </div>
+
+   
+   
+   <div>
+   <p:column>
+  
+
+   <p:commandButton  update="@form" value="Save" action="#{projectBean.save()}" /> 
+   </p:column> 
+   </div>
+   
+   </h:form>
+
+
+   </h:body>
+</html> 
+   
